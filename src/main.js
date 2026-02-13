@@ -167,7 +167,7 @@ Observer.create({
   onDown: () => !animating && gotoSection(currentIndex - 1, -1),
   onUp: () => !animating && gotoSection(currentIndex + 1, 1),
   tolerance: 10,
-  preventDefault: true,
+  preventDefault: false,
 });
 
 gotoSection(0, 1);

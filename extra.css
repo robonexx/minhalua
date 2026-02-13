@@ -1,291 +1,38 @@
-@import url('https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@100..900&display=swap');
-
-:root {
-  --base-100: #edf1e8;
-  --base-200: #dfdbd2;
-  --base-500: #080808;
-
-  --bg-gradient: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35));
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-::-webkit-scrollbar {
-  display: none;
-}
-
-body {
-  background-color: var(--base-100);
-  color: var(--base-500);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-img {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-}
-
-section {
-  position: relative;
-  height: 100svh;
-  width: 100%;
-  padding: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.hero {
-  position: relative;
-  padding-top: 20svh;
-  height: 100svh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: left;
-  background-color: #181818;
-  color: #c1c1c1;
-}
-
-.text {
-  position: absolute;
-  top: 0;
-  max-height: 100vh;
-  padding: 0 10vw;
-  padding-top: 30vh;
-}
-
 .about {
-  height: 90svh;
-  background-color: var(--base-200);
-  color: var(--base-500);
   position: relative;
+  /*   background: #03322c; */
+  min-height: 100vh;
+  max-height: 120vh;
+  overflow: hidden;
+  font-family:
+    'Inter',
+    system-ui,
+    -apple-system,
+    sans-serif;
+  color: #f0f0f0;
 }
 
-.about h2 {
-  width: 50%;
-  text-align: center;
-}
-
-h2 {
-  font-size: clamp(5rem, 6vh, 8rem);
-  font-weight: 800;
-  line-height: 0.85;
-}
-
-.lottie-container {
-  position: fixed;
-  top: 0;
+/* Background gradient */
+.about::before {
+  content: '';
+  position: absolute;
+  top: 100vh;
   left: 0;
   width: 100%;
-  padding: 1.5rem;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-}
-
-.lottie-container .lottie {
-  position: relative;
-  width: 10rem;
-  height: 10rem;
-  /*  transform: translateX(2rem); */
-  will-change: transform;
-  z-index: 1;
-}
-
-.lottie-container .hero-img {
-  width: 65%;
-  aspect-ratio: 16/9;
-  border-radius: 0.75rem;
-  transform-origin: top right;
-  will-change: transform;
-  overflow: hidden;
-}
-
-@media (max-width: 1000px) {
-  .about h2 {
-    width: 100%;
-  }
-
-  .lottie-container .lottie {
-    width: 4rem;
-    height: 4rem;
-    transform: translateX(1rem);
-  }
-
-  .lottie-container .hero-img {
-    width: 100%;
-  }
-}
-
-p {
-  margin: 0;
-}
-
-span {
-  margin: 0;
-}
-
-.poem-stanza {
-  margin-bottom: 1rem;
-  text-align: left;
-}
-
-.poem-line {
-  /*  display: block; */
-  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
-  line-height: 1.1;
-  letter-spacing: 0.02rem;
-}
-
-.moon {
-  color: #6b7cff;
-  font-weight: 600;
-  text-shadow: 0 0 12px rgba(107, 124, 255, 0.35);
-}
-
-.sun {
-  color: #f5b44c;
-  font-weight: 600;
-  text-shadow: 0 0 12px rgba(245, 180, 76, 0.35);
-}
-
-/* ---- SIGNOFF ---- */
-.poem-signoff {
-  margin-top: 1rem;
-  text-align: left;
-}
-
-.poem-signoff__icons {
-  font-size: 1.5rem;
-  margin: 0 0.25rem;
-  display: inline-block;
-  opacity: 0.9;
-}
-
-/* ---- OPTIONAL POLISH ---- */
-.poem-stanza:last-of-type {
-  margin-bottom: 0;
-}
-
-/* Smooth future GSAP animations */
-.poem-line,
-.poem-title__accent,
-.poem-title__sub,
-.poem-signoff__icons {
-  will-change: transform, opacity;
-}
-
-h2 {
-  font-size: clamp(1rem, 6vw, 10rem);
-  font-weight: 600;
-  line-height: 1.2;
-  text-align: center;
-  margin-right: -0.5em;
-  width: 90vw;
-  max-width: 1200px;
-  text-transform: none;
-}
-
-.sections-container {
-  position: absolute;
-  top: 200vh;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1000;
-}
-
-.section {
-  height: 100svh;
-  width: 100vw;
-  top: 0;
-  position: absolute;
-  visibility: hidden;
-  z-index: 101;
-}
-
-/* section children */
-.section .outer,
-.section .inner {
-  width: 100%;
-  height: 100%;
-  overflow-y: hidden;
-}
-
-.section .bg {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  background-size: cover;
-  background-position: center;
-}
-
-.section .bg h2 {
-  z-index: 999;
-  color: white;
-}
-
-.section .bg .clip-text {
-  overflow: hidden;
-}
-
-/* backgrounds */
-.first .bg {
-  background-image: var(--bg-gradient), url('/public/firstdate.png');
-}
-
-.second .bg {
-  background-image: var(--bg-gradient), url('/public/gos.png');
-  background-position: 50% 35%;
-}
-
-.third .bg {
-  background-image: var(--bg-gradient), url('/public/springa.png');
-}
-
-.fourth .bg {
-  background-image: var(--bg-gradient), url('/public/mys.png');
-}
-
-.fifth .bg {
-  background-image: var(--bg-gradient), url('/public/fika.png');
-  background-position: 50% 45%;
-}
-
-.sixth .bg {
-  background-image: var(--bg-gradient), url('/public/ikea.png');
-  background-position: 50% 25%;
-}
-
-.seventh .bg {
-  background-image: var(--bg-gradient), url('/public/hemmafix.png');
-  background-position: 50% 65%;
-}
-
-.eighth .bg {
-  background-image: var(--bg-gradient), url('/public/work.png');
-  background-position: 50% 45%;
-}
-
-.ninth .bg {
-  background-image: var(--bg-gradient), url('/public/dinner.png');
-  background-position: 50% 45%;
-}
-
-h2 * {
-  will-change: transform;
+  height: 100vh;
+  /*   background:
+    radial-gradient(
+      circle at 75% 25%,
+      rgba(9, 36, 32, 0.8) 0%,
+      rgba(0, 0, 0, 0) 50%
+    ),
+    radial-gradient(
+      circle at 25% 75%,
+      rgba(2, 34, 29, 0.9) 0%,
+      rgba(0, 0, 0, 0.7) 60%
+    ),
+    linear-gradient(to bottom, #03322c 0%, #021916 100%); */
+  z-index: -1;
 }
 
 .container {
@@ -322,17 +69,13 @@ h2 * {
   background: linear-gradient(135deg, #f3e8dc 0%, #d2a959 60%, #a88239 100%);
   -webkit-background-clip: text;
   background-clip: text;
-  filter: drop-shadow(0 0 15px rgba(7, 7, 7, 0.518));
+  filter: drop-shadow(0 0 15px rgba(168, 130, 57, 0.25));
 }
 
 .centered-text p {
   font-family: 'Inter', sans-serif;
   font-size: clamp(1rem, 2vw, 1.2rem);
-  color: #f1a307; /* Golden color for body text */
-  font-weight: bold;
-  background-color: black;
-  border-radius: 10px;
-  padding: 0.2rem 1rem;
+  color: #f2f1ef; /* Golden color for body text */
   margin: auto;
   margin-bottom: 2.5rem;
   font-weight: 300;
