@@ -43,7 +43,7 @@ section {
 
 .hero {
   position: relative;
-  padding-top: 20svh;
+  padding-top: 16svh;
   height: 100svh;
   display: flex;
   flex-direction: column;
@@ -290,7 +290,7 @@ h2 * {
 
 .container {
   position: relative;
-  width: 100%;
+  width: 100dvw;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -397,7 +397,9 @@ h2 * {
   inset: 0;
   margin: auto;
   width: min(1000px, 80vw);
+  width: 100%;
   height: min(600px, 70vh);
+  height: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
