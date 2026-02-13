@@ -282,6 +282,22 @@ h2 {
   background-image: var(--bg-gradient), url('/public/dinner.png');
   background-position: 50% 45%;
 }
+.tenth .bg {
+  background-image: var(--bg-gradient), url('/public/game.png');
+  background-position: 50% 45%;
+}
+.eleventh .bg {
+  background-image: var(--bg-gradient), url('/public/travel.png');
+  background-position: 50% 45%;
+}
+.twelfth .bg {
+  background-image: var(--bg-gradient), url('/public/rompa.png');
+  background-position: 50% 45%;
+}
+.thirteenth .bg {
+  background-image: var(--bg-gradient), url('/public/fullmoon.png');
+  background-position: 50% 45%;
+}
 
 h2 * {
   will-change: transform;
