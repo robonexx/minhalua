@@ -83,8 +83,10 @@ section {
 }
 
 .about {
+  height: 90svh;
   background-color: var(--base-200);
   color: var(--base-500);
+  position: relative;
 }
 
 .about h2 {
@@ -141,36 +143,6 @@ h2 {
   .lottie-container .hero-img {
     width: 100%;
   }
-}
-
-.enter-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: grid;
-  place-items: center;
-  background: rgba(8, 8, 8, 0.92);
-  backdrop-filter: blur(6px);
-}
-
-.enter-btn {
-  font-size: 1.25rem;
-  font-weight: 700;
-  padding: 1rem 1.5rem;
-  border-radius: 0.75rem;
-  border: 0;
-  cursor: pointer;
-}
-
-.content {
-  flex-direction: column;
-  background: var(--base-500);
-  color: var(--base-200);
-}
-
-.content h2 {
-  width: 100%;
-  text-align: center;
 }
 
 p {
@@ -242,20 +214,6 @@ h2 {
   text-transform: none;
 }
 
-header {
-  position: fixed;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 5%;
-  width: 100%;
-  z-index: 1000;
-  height: 7em;
-  font-size: clamp(0.66rem, 2vw, 1rem);
-  letter-spacing: 0.5em;
-}
-
 .sections-container {
   position: absolute;
   top: 100vh;
@@ -266,7 +224,7 @@ header {
 }
 
 .section {
-  height: 100%;
+  height: 100svh;
   width: 100%;
   top: 0;
   position: absolute;
@@ -296,6 +254,7 @@ header {
 
 .section .bg h2 {
   z-index: 999;
+  color: white;
 }
 
 .section .bg .clip-text {
@@ -304,34 +263,47 @@ header {
 
 /* backgrounds */
 .first .bg {
-  background-image:
-    var(--bg-gradient),
-    url('https://assets.codepen.io/16327/site-landscape-1.jpg');
+  background-image: var(--bg-gradient), url('/public/firstdate.png');
   z-index: 102;
 }
 
 .second .bg {
-  background-image:
-    var(--bg-gradient),
-    url('https://assets.codepen.io/16327/site-landscape-2.jpg');
+  background-image: var(--bg-gradient), url('/public/gos.png');
+  background-position: 50% 35%;
 }
 
 .third .bg {
-  background-image:
-    var(--bg-gradient),
-    url('https://assets.codepen.io/16327/site-landscape-3.jpg');
+  background-image: var(--bg-gradient), url('/public/springa.png');
 }
 
 .fourth .bg {
-  background-image:
-    var(--bg-gradient),
-    url('https://assets.codepen.io/16327/site-landscape-4.jpg');
+  background-image: var(--bg-gradient), url('/public/mys.png');
 }
 
 .fifth .bg {
-  background-image:
-    var(--bg-gradient),
-    url('https://assets.codepen.io/16327/site-landscape-5.jpg');
+  background-image: var(--bg-gradient), url('/public/fika.png');
+  background-position: 50% 45%;
+}
+
+.sixth .bg {
+  background-image: var(--bg-gradient), url('/public/ikea.png');
+  background-position: 50% 25%;
+}
+
+.seventh .bg {
+  background-image: var(--bg-gradient), url('/public/hemmafix.png');
+  background-position: 50% 65%;
+  height: auto;
+  width: fit-content;
+}
+
+.eighth .bg {
+  background-image: var(--bg-gradient), url('/public/work.png');
+  background-position: 50% 45%;
+}
+
+.ninth .bg {
+  background-image: var(--bg-gradient), url('/public/dinner.png');
   background-position: 50% 45%;
 }
 

@@ -91,21 +91,6 @@ ScrollTrigger.create({
   },
 });
 
-/* 
-ScrollTrigger.create({
-  trigger: document.body,
-  start: () => `top+=${window.innerHeight * 2} top`, 
-  end: () => `top+=${window.innerHeight * 3} top`, 
-  scrub: 1,
-  onUpdate: (self) => {
-   
-    gsap.set(heroImg, {
-      x: self.progress * window.innerWidth * 1.2, 
-      opacity: 1 - self.progress,
-    });
-  },
-}); */
-
 let sections = document.querySelectorAll('.section'),
   images = document.querySelectorAll('.bg'),
   headings = gsap.utils.toArray('.section-heading'),
