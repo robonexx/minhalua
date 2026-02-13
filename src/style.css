@@ -4,6 +4,8 @@
   --base-100: #edf1e8;
   --base-200: #dfdbd2;
   --base-500: #080808;
+
+  --bg-gradient: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35));
 }
 
 * {
@@ -227,4 +229,112 @@ span {
 .poem-title__sub,
 .poem-signoff__icons {
   will-change: transform, opacity;
+}
+
+h2 {
+  font-size: clamp(1rem, 6vw, 10rem);
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  margin-right: -0.5em;
+  width: 90vw;
+  max-width: 1200px;
+  text-transform: none;
+}
+
+header {
+  position: fixed;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5%;
+  width: 100%;
+  z-index: 1000;
+  height: 7em;
+  font-size: clamp(0.66rem, 2vw, 1rem);
+  letter-spacing: 0.5em;
+}
+
+.sections-container {
+  position: absolute;
+  top: 100vh;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+
+.section {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  position: absolute;
+  visibility: hidden;
+  z-index: 101;
+}
+
+/* section children */
+.section .outer,
+.section .inner {
+  width: 100%;
+  height: 100%;
+  overflow-y: hidden;
+}
+
+.section .bg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+.section .bg h2 {
+  z-index: 999;
+}
+
+.section .bg .clip-text {
+  overflow: hidden;
+}
+
+/* backgrounds */
+.first .bg {
+  background-image:
+    var(--bg-gradient),
+    url('https://assets.codepen.io/16327/site-landscape-1.jpg');
+  z-index: 102;
+}
+
+.second .bg {
+  background-image:
+    var(--bg-gradient),
+    url('https://assets.codepen.io/16327/site-landscape-2.jpg');
+}
+
+.third .bg {
+  background-image:
+    var(--bg-gradient),
+    url('https://assets.codepen.io/16327/site-landscape-3.jpg');
+}
+
+.fourth .bg {
+  background-image:
+    var(--bg-gradient),
+    url('https://assets.codepen.io/16327/site-landscape-4.jpg');
+}
+
+.fifth .bg {
+  background-image:
+    var(--bg-gradient),
+    url('https://assets.codepen.io/16327/site-landscape-5.jpg');
+  background-position: 50% 45%;
+}
+
+h2 * {
+  will-change: transform;
 }

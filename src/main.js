@@ -1,89 +1,36 @@
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Lenis from "lenis";
-import lottie from "lottie-web";
-import astronaut from "./assets/Astronaut.json";
-import audioSrc from "./assets/scroll-audio.mp3";
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Lenis from 'lenis';
+import lottie from 'lottie-web';
+import astronaut from './assets/Astronaut.json';
+import { Observer } from 'gsap/Observer';
 
-gsap.registerPlugin(ScrollTrigger);
-/* 
-const audio = new Audio(audioSrc);
-audio.preload = "auto";
-audio.loop = false;
-audio.volume = 1;
+import { SplitText } from 'gsap/SplitText';
 
-let audioUnlocked = false;
-let hasPlayedThisLoad = false;
-
-const enterOverlay = document.getElementById("enterOverlay");
-const enterBtn = document.getElementById("enterBtn");
-
-async function unlockAndEnter() {
-  try {
-    await audio.play();
-    audio.pause();
-    audio.currentTime = 0;
-
-    audioUnlocked = true;
-
-    enterOverlay.style.opacity = "0";
-    enterOverlay.style.pointerEvents = "none";
-    setTimeout(() => enterOverlay.remove(), 250);
-  } catch (e) {
-    console.warn("Audio still blocked:", e);
-  }
-}
-
-enterBtn.addEventListener("click", unlockAndEnter);
-
-enterBtn.addEventListener("keydown", (e) => {
-  if (e.key === "Enter" || e.key === " ") unlockAndEnter();
-});
-
-ScrollTrigger.create({
-  trigger: document.body,
-  start: "top top",
-  end: () => `+=${window.innerHeight * 2}`,
-  onUpdate: (self) => {
-    if (
-      audioUnlocked &&
-      !hasPlayedThisLoad &&
-      self.direction === 1 &&
-      self.progress > 0.001
-    ) {
-      hasPlayedThisLoad = true;
-      audio.play().catch(() => {});
-    }
-
-    if (self.progress >= 1 && !audio.paused) {
-      audio.pause();
-      audio.currentTime = 0;
-    }
-  },
-}); */
+gsap.registerPlugin(ScrollTrigger, SplitText, Observer);
 
 const lenis = new Lenis();
-lenis.on("scroll", ScrollTrigger.update);
+lenis.on('scroll', ScrollTrigger.update);
 gsap.ticker.add((time) => {
   lenis.raf(time * 1000);
 });
 gsap.ticker.lagSmoothing(0);
 
-let scrollDirection = "down";
+let scrollDirection = 'down';
 let lastScrollY = 0;
 
-lenis.on("scroll", ({ scroll }) => {
-  scrollDirection = scroll > lastScrollY ? "down" : "up";
+lenis.on('scroll', ({ scroll }) => {
+  scrollDirection = scroll > lastScrollY ? 'down' : 'up';
   lastScrollY = scroll;
 });
 
-const heroImg = document.querySelector(".hero-img");
-const lottieContainer = document.querySelector(".lottie");
+const heroImg = document.querySelector('.hero-img');
+const lottieContainer = document.querySelector('.lottie');
 
 const anim = lottie.loadAnimation({
   container: lottieContainer,
   /* path: "/assets/Astronaut.json", */
-  renderer: "svg",
+  renderer: 'svg',
   autoplay: false,
   animationData: astronaut,
 });
@@ -92,9 +39,9 @@ const heroImgInitialWidth = heroImg.offsetWidth;
 const heroImgTargetWidth = 300;
 
 ScrollTrigger.create({
-  trigger: ".about",
-  start: "top bottom",
-  end: "top 30%",
+  trigger: '.about',
+  start: 'top bottom',
+  end: 'top 30%',
   scrub: 1,
   onUpdate: (self) => {
     const heroImgCurrentWidth =
@@ -108,9 +55,9 @@ ScrollTrigger.create({
 let animationPaused = false;
 
 ScrollTrigger.create({
-  trigger: ".about",
-  start: "top 30%",
-  end: "bottom top",
+  trigger: '.about',
+  start: 'top 30%',
+  end: 'bottom top',
   scrub: 1,
   onUpdate: (self) => {
     const lottieOffset = self.progress * window.innerHeight * 1.1;
@@ -119,15 +66,15 @@ ScrollTrigger.create({
 
     gsap.set(lottieContainer, {
       y: -lottieOffset,
-      rotateY: scrollDirection === "up" ? -180 : 0,
+      rotateY: scrollDirection === 'up' ? -180 : 0,
     });
   },
 });
 
 ScrollTrigger.create({
-  trigger: ".hero",
-  start: "top top",
-  end: "bottom top",
+  trigger: '.hero',
+  start: 'top top',
+  end: 'bottom top',
   scrub: 1,
   onUpdate: (self) => {
     if (!animationPaused) {
@@ -139,7 +86,7 @@ ScrollTrigger.create({
     }
 
     gsap.set(lottieContainer, {
-      rotateY: scrollDirection === "up" ? -180 : 0,
+      rotateY: scrollDirection === 'up' ? -180 : 0,
     });
   },
 });
@@ -159,123 +106,83 @@ ScrollTrigger.create({
   },
 }); */
 
+let sections = document.querySelectorAll('.section'),
+  images = document.querySelectorAll('.bg'),
+  headings = gsap.utils.toArray('.section-heading'),
+  outerWrappers = gsap.utils.toArray('.outer'),
+  innerWrappers = gsap.utils.toArray('.inner'),
+  splitHeadings = headings.map(
+    (heading) =>
+      new SplitText(heading, {
+        type: 'chars,words,lines',
+        linesClass: 'clip-text',
+      }),
+  ),
+  currentIndex = -1,
+  wrap = gsap.utils.wrap(0, sections.length),
+  animating;
 
-console.clear();
+gsap.set(outerWrappers, { yPercent: 100 });
+gsap.set(innerWrappers, { yPercent: -100 });
 
-gsap.registerPlugin(ScrollTrigger);
-
-const COUNT = 75;
-const REPEAT_COUNT = 3;
-
-const capture = document.querySelector("#capture");
-const img = document.querySelector("#targetImg");
-
-// --- helpers
-function waitForImage(el) {
-  return new Promise((resolve, reject) => {
-    if (el.complete && el.naturalWidth > 0) return resolve();
-    el.onload = () => resolve();
-    el.onerror = (e) => reject(e);
-  });
-}
-
-function cleanupOldEffect() {
-  // remove old canvases
-  document.querySelectorAll(".capture-canvas").forEach((c) => c.remove());
-  // kill old ScrollTriggers/timelines
-  ScrollTrigger.getAll().forEach((st) => st.kill());
-  gsap.globalTimeline.clear(); // optional, keeps things tidy
-  // show original again
-  capture.style.display = "";
-}
-
-async function createCanvases(captureEl) {
-  cleanupOldEffect();
-
-  // wait for current image to be ready
-  await waitForImage(img);
-
-  // html2canvas needs CORS enabled for external images
-  const canvas = await html2canvas(captureEl, {
-    backgroundColor: null,
-    useCORS: true,
-    allowTaint: false
-  });
-
-  const width = canvas.width;
-  const height = canvas.height;
-  const ctx = canvas.getContext("2d");
-  const imageData = ctx.getImageData(0, 0, width, height);
-
-  let dataList = [];
-  captureEl.style.display = "none";
-
-  for (let i = 0; i < COUNT; i++) {
-    dataList.push(ctx.createImageData(width, height));
-  }
-
-  for (let x = 0; x < width; x++) {
-    for (let y = 0; y < height; y++) {
-      for (let l = 0; l < REPEAT_COUNT; l++) {
-        const index = (x + y * width) * 4;
-        const dataIndex = Math.floor((COUNT * (Math.random() + (2 * x) / width)) / 3);
-        for (let p = 0; p < 4; p++) {
-          dataList[dataIndex].data[index + p] = imageData.data[index + p];
-        }
-      }
-    }
-  }
-
-  dataList.forEach((data, i) => {
-    let clonedCanvas = canvas.cloneNode();
-    clonedCanvas.getContext("2d").putImageData(data, 0, 0);
-    clonedCanvas.className = "capture-canvas";
-    document.body.appendChild(clonedCanvas);
-
-    const randomAngle = (Math.random() - 0.5) * 2 * Math.PI;
-    const randomRotationAngle = 30 * (Math.random() - 0.5);
-
-    gsap.timeline({
-      scrollTrigger: {
-        scrub: 1,
-        start: 0,
-        end: window.innerHeight * 2
-      }
-    }).to(clonedCanvas, {
-      duration: 1,
-      rotate: randomRotationAngle,
-      translateX: 40 * Math.sin(randomAngle),
-      translateY: 40 * Math.cos(randomAngle),
-      opacity: 0,
-      delay: (i / dataList.length) * 2
+function gotoSection(index, direction) {
+  index = wrap(index); // make sure it's valid
+  animating = true;
+  let fromTop = direction === -1,
+    dFactor = fromTop ? -1 : 1,
+    tl = gsap.timeline({
+      defaults: { duration: 1.25, ease: 'power1.inOut' },
+      onComplete: () => (animating = false),
     });
-  });
+  if (currentIndex >= 0) {
+    // The first time this function runs, current is -1
+    gsap.set(sections[currentIndex], { zIndex: 0 });
+    tl.to(images[currentIndex], { yPercent: -15 * dFactor }).set(
+      sections[currentIndex],
+      { autoAlpha: 0 },
+    );
+  }
+  gsap.set(sections[index], { autoAlpha: 1, zIndex: 1 });
+  tl.fromTo(
+    [outerWrappers[index], innerWrappers[index]],
+    {
+      yPercent: (i) => (i ? -100 * dFactor : 100 * dFactor),
+    },
+    {
+      yPercent: 0,
+    },
+    0,
+  )
+    .fromTo(images[index], { yPercent: 15 * dFactor }, { yPercent: 0 }, 0)
+    .fromTo(
+      splitHeadings[index].chars,
+      {
+        autoAlpha: 0,
+        yPercent: 150 * dFactor,
+      },
+      {
+        autoAlpha: 1,
+        yPercent: 0,
+        duration: 1,
+        ease: 'power2',
+        stagger: {
+          each: 0.02,
+          from: 'random',
+        },
+      },
+      0.2,
+    );
+
+  currentIndex = index;
 }
 
-// --- UI wiring
-document.querySelector("#file").addEventListener("change", async (e) => {
-  const file = e.target.files?.[0];
-  if (!file) return;
-  img.crossOrigin = "anonymous"; // fine for blob URLs too
-  img.src = URL.createObjectURL(file);
-  await createCanvases(capture);
+Observer.create({
+  type: 'wheel,touch,pointer',
+  wheelSpeed: -1,
+  onDown: () => !animating && gotoSection(currentIndex - 1, -1),
+  onUp: () => !animating && gotoSection(currentIndex + 1, 1),
+  tolerance: 10,
+  preventDefault: true,
 });
 
-document.querySelector("#loadUrl").addEventListener("click", async () => {
-  const url = document.querySelector("#url").value.trim();
-  if (!url) return;
-  img.crossOrigin = "anonymous";
-  img.src = url;
-  await createCanvases(capture);
-});
-
-document.querySelector("#rebuild").addEventListener("click", async () => {
-  await createCanvases(capture);
-});
-
-// set an initial image (optional)
-img.src = "https://picsum.photos/1200/800";
-createCanvases(capture).catch(() => {
-  // if CORS blocks it, use upload instead
-  console.warn("Initial URL likely blocked by CORS; try uploading an image.");
-});
+gotoSection(0, 1);
